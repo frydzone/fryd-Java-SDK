@@ -42,5 +42,8 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
-      # run tests!
-      - run: gradle test
+      # build
+      - run: gradle build
+
+      - store_artifact:
+        path: /build/libs/frydSDK*
