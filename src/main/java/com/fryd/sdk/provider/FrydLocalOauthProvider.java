@@ -1,6 +1,8 @@
 package com.fryd.sdk.provider;
 
 /**
+ * yey
+ *
  * @author Kristoffer Pöpperling, fryd
  */
 public class FrydLocalOauthProvider extends AbstractFrydProvider {
