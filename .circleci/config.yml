@@ -45,5 +45,9 @@ jobs:
       # build
       - run: gradle build
 
+      - run:
+        name: printstuff
+        command: ls -ltr
+
       - store_artifacts:
-          path: $CIRCLE_WORKING_DIRECTORY/build/libs
+          path: ./build/libs
