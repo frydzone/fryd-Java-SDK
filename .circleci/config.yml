@@ -45,9 +45,6 @@ jobs:
       # build
       - run: gradle build
 
-      - run:
-          name: printstuff
-          command: ls -ltr
-
       - store_artifacts:
           path: ./build/libs
+          destination: artifacts
