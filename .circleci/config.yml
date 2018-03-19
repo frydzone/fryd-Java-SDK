@@ -24,9 +24,6 @@ jobs:
     steps:
       - checkout
 
-      - store_artifact:
-          path: /build/libs
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -47,3 +44,6 @@ jobs:
 
       # build
       - run: gradle build
+
+      - store_artifacts:
+          path: /build/libs
