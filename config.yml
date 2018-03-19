@@ -24,6 +24,20 @@ jobs:
     steps:
       - checkout
 
+      - run:
+        name: Creating Dummy Artifacts
+        command: |
+            echo "my artifact file" > /tmp/artifact-1;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+
+      - store_artifacts:
+          path: /tmp/artifact-1
+          destination: artifact-file
+
+      - store_artifacts:
+          path: /tmp/artifacts
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -32,8 +46,8 @@ jobs:
           - v1-dependencies-
 
       - run:
-            name: chmod permissions
-            command: chmod +x ./gradlew
+          name: chmod permissions
+          command: chmod +x ./gradlew
 
       - run: gradle dependencies
 
@@ -46,4 +60,4 @@ jobs:
       - run: gradle build
 
       - store_artifact:
-        path: /build/libs/frydSDK*
+        path: /build/libs/frydSDK*.jar
