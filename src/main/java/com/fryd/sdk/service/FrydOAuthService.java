@@ -11,6 +11,7 @@ import lombok.Getter;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * Main Service to get authorization codes and Access Tokens.
@@ -78,7 +79,6 @@ public class FrydOAuthService {
         return this.oauthService.getAuthorizationUrl();
     }
 
-
     /**
      * Gets an Access Token with the Scope "UserInfo" to get
      * Information of the User how created the code
@@ -94,6 +94,20 @@ public class FrydOAuthService {
     }
 
     /**
+     * Gets an Access Token in an async way with the Scope "UserInfo" to get
+     * Information of the User how created the code.
+     *
+     * @param code
+     * @return An Access Token with the scope "UserInfo"
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws IOException
+     */
+    public Future<OAuth2AccessToken> getUserAccessTokenAsync(String code) throws InterruptedException, ExecutionException, IOException {
+        return this.oauthService.getAccessTokenAsync(code);
+    }
+
+    /**
      * Gets an Access Token with the Scope "AppInfo" to get
      * Information of your fryd Spots and everything about them
      *
@@ -104,6 +118,19 @@ public class FrydOAuthService {
      */
     public OAuth2AccessToken getAppAccessToken() throws InterruptedException, ExecutionException, IOException {
         return this.oauthService.getAccessTokenClientCredentialsGrant();
+    }
+
+    /**
+     * Gets an Access Token in an async way with the Scope "AppInfo" to get
+     * Information of your fryd Spots and everything about them
+     *
+     * @return An Access Token with the scope "AppInfo"
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws IOException
+     */
+    public Future<OAuth2AccessToken> getAppAccessTokenAsync() throws InterruptedException, ExecutionException, IOException {
+        return this.oauthService.getAccessTokenClientCredentialsGrantAsync();
     }
 
     public Response execute(OAuthRequest request) throws InterruptedException, ExecutionException, IOException {
