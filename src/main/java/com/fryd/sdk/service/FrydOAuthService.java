@@ -32,10 +32,14 @@ public class FrydOAuthService {
     @Getter
     private OAuth20Service oauthService;
 
+    @Getter
+    private AbstractFrydProvider oauthProvider;
+
     public FrydOAuthService(String clientId, String clientSecret, String returnUrl) {
         this.CLIENT_ID = clientId;
         this.CLIENT_SECRET = clientSecret;
         this.RETURN_URL = returnUrl;
+        this.oauthProvider = FrydOauthProvider.instance();
 
         createOAuthService();
     }
@@ -44,19 +48,16 @@ public class FrydOAuthService {
         this.CLIENT_ID = CLIENT_ID;
         this.CLIENT_SECRET = clientSecret;
         this.RETURN_URL = returnUrl;
+        this.oauthProvider = oauthProvider;
 
-        createOAuthService(oauthProvider);
+        createOAuthService();
     }
 
     private void createOAuthService() {
-        createOAuthService(FrydOauthProvider.instance());
-    }
-
-    private void createOAuthService(AbstractFrydProvider oauthProvider) {
         this.oauthService = new ServiceBuilder(this.CLIENT_ID)
                 .apiSecret(this.CLIENT_SECRET)
                 .callback(this.RETURN_URL)
-                .build(oauthProvider);
+                .build(this.oauthProvider);
     }
 
     /**
@@ -66,7 +67,7 @@ public class FrydOAuthService {
      * @return a brand-new FrydAPIService
      */
     public FrydAPIService createFrydAPIService() {
-        return new FrydAPIService(this.oauthService);
+        return new FrydAPIService(this.oauthService, this.oauthProvider.getAPIBaseURL());
     }
 
     /**
@@ -99,11 +100,8 @@ public class FrydOAuthService {
      *
      * @param code
      * @return An Access Token with the scope "UserInfo"
-     * @throws InterruptedException
-     * @throws ExecutionException
-     * @throws IOException
      */
-    public Future<OAuth2AccessToken> getUserAccessTokenAsync(String code) throws InterruptedException, ExecutionException, IOException {
+    public Future<OAuth2AccessToken> getUserAccessTokenAsync(String code) {
         return this.oauthService.getAccessTokenAsync(code);
     }
 
@@ -125,11 +123,8 @@ public class FrydOAuthService {
      * Information of your fryd Spots and everything about them
      *
      * @return An Access Token with the scope "AppInfo"
-     * @throws InterruptedException
-     * @throws ExecutionException
-     * @throws IOException
      */
-    public Future<OAuth2AccessToken> getAppAccessTokenAsync() throws InterruptedException, ExecutionException, IOException {
+    public Future<OAuth2AccessToken> getAppAccessTokenAsync() {
         return this.oauthService.getAccessTokenClientCredentialsGrantAsync();
     }
 

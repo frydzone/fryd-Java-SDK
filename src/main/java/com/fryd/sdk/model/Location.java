@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Kristoffer Pöpperling, fryd
@@ -38,12 +39,16 @@ public class Location {
     @JsonProperty("trophylist_id")
     private String trophylistId;
 
-    @JsonSerialize(using = DateSerializer.class)
-    private Date created;
+    private LocalDateTime created;
 
     @JsonProperty("owner_id")
     private String ownerId;
 
     private String status;
+
+    @JsonProperty("iconpic_id")
+    private String iconpicId;
+
+    private List<String> pictures;
 
 }

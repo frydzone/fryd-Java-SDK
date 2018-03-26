@@ -1,13 +1,11 @@
 package com.fryd.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -27,11 +25,9 @@ public class Trophylist {
     @JsonProperty("iconpic_id")
     private String iconpicId;
 
-    @JsonSerialize(using = DateSerializer.class)
-    private Date start;
+    private LocalDateTime start;
 
-    @JsonSerialize(using = DateSerializer.class)
-    private Date end;
+    private LocalDateTime end;
 
     @Getter @Setter
     public static class Trophylists {

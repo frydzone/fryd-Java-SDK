@@ -16,6 +16,8 @@ repositories {
 dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.4'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.4'
 
     compile group: 'com.github.scribejava', name: 'scribejava-core', version: '5.3.0'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
