@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fryd.sdk.model.APIResponse;
 import com.fryd.sdk.model.Location;
+import com.fryd.sdk.model.Trophy;
 import com.fryd.sdk.model.Trophylist;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -50,6 +50,14 @@ public abstract class AbstractFrydAPIService {
     public abstract APIResponse<List<Trophylist>> getTrophylistsFromLocation(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException;
 
     public abstract Future<APIResponse<List<Trophylist>>> getTrophylistsFromLocationAsync(OAuth2AccessToken appAccessToken, String locationId);
+
+    public abstract APIResponse<List<Trophy>> getTrophiesOfList(OAuth2AccessToken appAccessToken, String trophylistId) throws InterruptedException, ExecutionException, IOException;
+
+    public abstract Future<APIResponse<List<Trophy>>> getTrophiesOfListAsync(OAuth2AccessToken appAccessToken, String trophylistId);
+
+    public abstract APIResponse<Trophy> getTrophyById(OAuth2AccessToken appAccessToken, String trophyId) throws InterruptedException, ExecutionException, IOException;
+
+    public abstract Future<APIResponse<Trophy>> getTrophyByIdAsync(OAuth2AccessToken appAccessToken, String trophyId);
 
     protected OAuthRequest createRequest(OAuth2AccessToken appAccessToken, String urlAddon) {
         OAuthRequest request = new OAuthRequest(Verb.POST, BASE_API_URL+urlAddon);
@@ -111,5 +119,23 @@ public abstract class AbstractFrydAPIService {
         apiResponse.setUid(uid);
 
         return apiResponse;
+    }
+
+    protected APIResponse<List<Trophylist>> transformTrophylistResponse(APIResponse<Trophylist.Trophylists> oldResponse) {
+        Trophylist.Trophylists trophylists = oldResponse.getFrydDataType();
+        List<Trophylist> trophies = null;
+        if (trophylists != null) {
+            trophies = trophylists.getTrophylists();
+        }
+        return new APIResponse<>(trophies, oldResponse.getType(), oldResponse.getMessage(), oldResponse.getUid());
+    }
+
+    protected APIResponse<List<Trophy>> transformTrophiesResponse(APIResponse<Trophy.Trophies> oldResponse) {
+        Trophy.Trophies trophylists = oldResponse.getFrydDataType();
+        List<Trophy> trophies = null;
+        if (trophylists != null) {
+            trophies = trophylists.getTrophys();
+        }
+        return new APIResponse<>(trophies, oldResponse.getType(), oldResponse.getMessage(), oldResponse.getUid());
     }
 }

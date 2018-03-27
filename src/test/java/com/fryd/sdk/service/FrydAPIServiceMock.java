@@ -1,9 +1,6 @@
 package com.fryd.sdk.service;
 
-import com.fryd.sdk.model.APIResponse;
-import com.fryd.sdk.model.Location;
-import com.fryd.sdk.model.TestModelJsonRepresentation;
-import com.fryd.sdk.model.Trophylist;
+import com.fryd.sdk.model.*;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import lombok.Setter;
 
@@ -24,6 +21,15 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
     @Setter
     private String locationJsonResponse = TestModelJsonRepresentation.FULL_LOCATION_JSON;
 
+    @Setter
+    private String trophylistJsonResponse = TestModelJsonRepresentation.FULL_TROPHYLISTS_JSON;
+
+    @Setter
+    private String trophiesJsonResponse = TestModelJsonRepresentation.FULL_TROPHIES_JSON;
+
+    @Setter
+    private String trophyJsonResponse = TestModelJsonRepresentation.FULL_TROPHY_JSON;
+
     @Override
     public APIResponse<Location> getLocationById(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException {
         return handleRequestInternal(new Location(), locationJsonResponse);
@@ -36,11 +42,31 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
 
     @Override
     public APIResponse<List<Trophylist>> getTrophylistsFromLocation(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException {
-        return null;
+        return transformTrophylistResponse(handleRequestInternal(new Trophylist.Trophylists(), trophylistJsonResponse));
     }
 
     @Override
     public Future<APIResponse<List<Trophylist>>> getTrophylistsFromLocationAsync(OAuth2AccessToken appAccessToken, String locationId) {
+        return null;
+    }
+
+    @Override
+    public APIResponse<List<Trophy>> getTrophiesOfList(OAuth2AccessToken appAccessToken, String trophylistId) throws InterruptedException, ExecutionException, IOException {
+        return transformTrophiesResponse(handleRequestInternal(new Trophy.Trophies(), trophiesJsonResponse));
+    }
+
+    @Override
+    public Future<APIResponse<List<Trophy>>> getTrophiesOfListAsync(OAuth2AccessToken appAccessToken, String trophylistId) {
+        return null;
+    }
+
+    @Override
+    public APIResponse<Trophy> getTrophyById(OAuth2AccessToken appAccessToken, String trophyId) throws InterruptedException, ExecutionException, IOException {
+        return handleRequestInternal(new Trophy(), trophyJsonResponse);
+    }
+
+    @Override
+    public Future<APIResponse<Trophy>> getTrophyByIdAsync(OAuth2AccessToken appAccessToken, String trophyId) {
         return null;
     }
 }

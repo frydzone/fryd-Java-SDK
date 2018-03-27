@@ -2,6 +2,7 @@ package com.fryd.sdk.service;
 
 import com.fryd.sdk.model.APIResponse;
 import com.fryd.sdk.model.Location;
+import com.fryd.sdk.model.Trophy;
 import com.fryd.sdk.model.Trophylist;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
@@ -65,14 +66,44 @@ public class FrydAPIService extends AbstractFrydAPIService {
         });
     }
 
-    private APIResponse<List<Trophylist>> transformTrophylistResponse(APIResponse<Trophylist.Trophylists> oldResponse) {
-        Trophylist.Trophylists trophylists = oldResponse.getFrydDataType();
-        List<Trophylist> trophies = null;
-        if (trophylists != null) {
-            trophies = trophylists.getTrophylists();
-        }
-        return new APIResponse<>(trophies, oldResponse.getType(), oldResponse.getMessage(), oldResponse.getUid());
+    public APIResponse<List<Trophy>> getTrophiesOfList(OAuth2AccessToken appAccessToken, String trophylistId) throws InterruptedException, ExecutionException, IOException {
+        OAuthRequest request = createRequest(appAccessToken, "/trophies");
+        request.setPayload("{\"trophylist_id\":\""+trophylistId+"\"}");
+        return transformTrophiesResponse(handleRequest(new Trophy.Trophies(), request));
     }
 
+    public Future<APIResponse<List<Trophy>>> getTrophiesOfListAsync(OAuth2AccessToken appAccessToken, String trophylistId) {
+        return CompletableFuture.supplyAsync(() -> {
+            APIResponse<List<Trophy>> trophies = null;
+            try {
+                OAuthRequest request = createRequest(appAccessToken, "/trophies");
+                request.setPayload("{\"trophylist_id\":\""+trophylistId+"\"}");
+                trophies = transformTrophiesResponse(handleRequestAsync(new Trophy.Trophies(), request));
+            } catch (InterruptedException | ExecutionException | IOException ex) {
+                logger.log(Level.WARNING, "Failed to get trophies of trophylist", ex);
+            }
+            return trophies;
+        });
+    }
+
+    public APIResponse<Trophy> getTrophyById(OAuth2AccessToken appAccessToken, String trophyId) throws InterruptedException, ExecutionException, IOException {
+        OAuthRequest request = createRequest(appAccessToken, "/trophy");
+        request.setPayload("{\"trophy_id\":\""+trophyId+"\"}");
+        return handleRequest(new Trophy(), request);
+    }
+
+    public Future<APIResponse<Trophy>> getTrophyByIdAsync(OAuth2AccessToken appAccessToken, String trophyId) {
+        return CompletableFuture.supplyAsync(() -> {
+            APIResponse<Trophy> trophy = null;
+            try {
+                OAuthRequest request = createRequest(appAccessToken, "/trophy");
+                request.setPayload("{\"trophy_id\":\""+trophyId+"\"}");
+                trophy = handleRequestAsync(new Trophy(), request);
+            } catch (InterruptedException | ExecutionException | IOException ex) {
+                logger.log(Level.WARNING, "Failed to get trophy by id", ex);
+            }
+            return trophy;
+        });
+    }
 }
 

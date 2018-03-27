@@ -15,16 +15,7 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Kristoffer Pöpperling, fryd
  */
-public class FrydAPIServiceLocationTest {
-
-    private AbstractFrydAPIService frydAPIService;
-
-    private OAuth2AccessToken testAppAccessToken = new OAuth2AccessToken("1");
-
-    @Before
-    public void setUpMockInterface() throws Exception {
-        frydAPIService = new FrydAPIServiceMock();
-    }
+public class FrydAPILocationTest extends FrydAPITest {
 
     @Test
     public void testGetLocationByIdFullBody() throws Exception {
@@ -99,10 +90,11 @@ public class FrydAPIServiceLocationTest {
     @Test
     public void testGetLocationByIdNotPartError() throws Exception {
         ((FrydAPIServiceMock) frydAPIService).setLocationJsonResponse(TestModelJsonRepresentation.LOCATION_NOT_PART_ERROR);
-        APIResponse<Location> responseLocationError= frydAPIService.getLocationById(testAppAccessToken, "5");
+        APIResponse<Location> responseLocationError = frydAPIService.getLocationById(testAppAccessToken, "5");
 
-        System.out.println(responseLocationError);
-
+        assertThat(responseLocationError.getFrydDataType(), nullValue());
+        assertThat(responseLocationError.getMessage(), is("Location not part of external application."));
+        assertThat(responseLocationError.getType(), is("ERROR"));
 
     }
 
