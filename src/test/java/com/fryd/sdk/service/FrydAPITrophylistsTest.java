@@ -27,7 +27,7 @@ public class FrydAPITrophylistsTest extends FrydAPITest {
         for (Trophylist list : trophylists) {
             String type = list.getType();
 
-            assertThat(list.get_id(), notNullValue());
+            assertThat(list.getId(), notNullValue());
             assertThat(list.getName(), notNullValue());
             assertThat(list.getDescription(), notNullValue());
             assertThat(list.getType(), notNullValue());
@@ -49,7 +49,7 @@ public class FrydAPITrophylistsTest extends FrydAPITest {
         assertThat(trophylists.size(), is(1));
         Trophylist theOneAndOnlyTrophylist = trophylists.get(0);
 
-        assertThat(theOneAndOnlyTrophylist.get_id(), is("57d019d6b9ad433518b1f669"));
+        assertThat(theOneAndOnlyTrophylist.getId(), is("57d019d6b9ad433518b1f669"));
         assertThat(theOneAndOnlyTrophylist.getName(), is("Stadt Eppstein Erfolge"));
         assertThat(theOneAndOnlyTrophylist.getDescription(), is("Alle Stadt Eppstein Erfolge"));
         assertThat(theOneAndOnlyTrophylist.getType(), is("LISTE"));

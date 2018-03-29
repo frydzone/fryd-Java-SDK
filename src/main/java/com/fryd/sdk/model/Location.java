@@ -16,7 +16,7 @@ import java.util.List;
 @Getter @Setter @ToString
 public class Location {
 
-    private String _id;
+    private String id;
 
     private String name;
 

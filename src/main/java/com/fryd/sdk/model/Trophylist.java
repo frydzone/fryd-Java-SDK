@@ -14,7 +14,7 @@ import java.util.List;
 @Getter @Setter @ToString
 public class Trophylist {
 
-    private String _id;
+    private String id;
 
     private String name;
 

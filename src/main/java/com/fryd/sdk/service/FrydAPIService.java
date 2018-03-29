@@ -1,9 +1,6 @@
 package com.fryd.sdk.service;
 
-import com.fryd.sdk.model.APIResponse;
-import com.fryd.sdk.model.Location;
-import com.fryd.sdk.model.Trophy;
-import com.fryd.sdk.model.Trophylist;
+import com.fryd.sdk.model.*;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.oauth.OAuth20Service;
@@ -104,6 +101,12 @@ public class FrydAPIService extends AbstractFrydAPIService {
             }
             return trophy;
         });
+    }
+
+    public APIResponse<User> getUserInformation(OAuth2AccessToken userAccessToken) throws InterruptedException, ExecutionException, IOException {
+        OAuthRequest request = createRequest(userAccessToken, "/user");
+//        request.setPayload("{\"user_id\":\"token\"}");
+        return handleRequest(new User(), request);
     }
 }
 

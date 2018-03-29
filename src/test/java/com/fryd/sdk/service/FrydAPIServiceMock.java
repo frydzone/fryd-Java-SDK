@@ -2,10 +2,13 @@ package com.fryd.sdk.service;
 
 import com.fryd.sdk.model.*;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.Response;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -16,6 +19,12 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
 
     public FrydAPIServiceMock() {
         super(null, "mock://url.com");
+    }
+
+    private Map<String,String> headers = new HashMap<>();
+
+    {
+        headers.put("content-type", "application/json; charset=utf-8");
     }
 
     @Setter
@@ -32,7 +41,8 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
 
     @Override
     public APIResponse<Location> getLocationById(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException {
-        return handleRequestInternal(new Location(), locationJsonResponse);
+        Response response = new Response(200, "", headers, locationJsonResponse);
+        return handleRequestInternal(new Location(), response);
     }
 
     @Override
@@ -42,7 +52,8 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
 
     @Override
     public APIResponse<List<Trophylist>> getTrophylistsFromLocation(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException {
-        return transformTrophylistResponse(handleRequestInternal(new Trophylist.Trophylists(), trophylistJsonResponse));
+        Response response = new Response(200, "", headers, trophylistJsonResponse);
+        return transformTrophylistResponse(handleRequestInternal(new Trophylist.Trophylists(), response));
     }
 
     @Override
@@ -52,7 +63,8 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
 
     @Override
     public APIResponse<List<Trophy>> getTrophiesOfList(OAuth2AccessToken appAccessToken, String trophylistId) throws InterruptedException, ExecutionException, IOException {
-        return transformTrophiesResponse(handleRequestInternal(new Trophy.Trophies(), trophiesJsonResponse));
+        Response response = new Response(200, "", headers, trophiesJsonResponse);
+        return transformTrophiesResponse(handleRequestInternal(new Trophy.Trophies(), response));
     }
 
     @Override
@@ -62,7 +74,8 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
 
     @Override
     public APIResponse<Trophy> getTrophyById(OAuth2AccessToken appAccessToken, String trophyId) throws InterruptedException, ExecutionException, IOException {
-        return handleRequestInternal(new Trophy(), trophyJsonResponse);
+        Response response = new Response(200, "", headers, trophyJsonResponse);
+        return handleRequestInternal(new Trophy(), response);
     }
 
     @Override

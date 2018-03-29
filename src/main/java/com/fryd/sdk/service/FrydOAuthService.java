@@ -4,8 +4,6 @@ import com.fryd.sdk.provider.AbstractFrydProvider;
 import com.fryd.sdk.provider.FrydOauthProvider;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import lombok.Getter;
 
@@ -127,12 +125,5 @@ public class FrydOAuthService {
     public Future<OAuth2AccessToken> getAppAccessTokenAsync() {
         return this.oauthService.getAccessTokenClientCredentialsGrantAsync();
     }
-
-    public Response execute(OAuthRequest request) throws InterruptedException, ExecutionException, IOException {
-        return this.oauthService.execute(request);
-    }
-
-
-    // TODO: Add the other methods
 
 }

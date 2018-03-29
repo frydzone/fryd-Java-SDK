@@ -22,7 +22,7 @@ public class FrydAPILocationTest extends FrydAPITest {
         APIResponse<Location> responseLocationFullBody = frydAPIService.getLocationById(testAppAccessToken, "57d014e2b9ad432b045c9aah");
         Location locationFullBody = responseLocationFullBody.getFrydDataType();
 
-        assertThat(locationFullBody.get_id(), is("57d014e2b9ad432b045c9aah"));
+        assertThat(locationFullBody.getId(), is("57d014e2b9ad432b045c9aah"));
         assertThat(locationFullBody.getName(), is("Museum für vermoderne Kunst"));
         assertThat(locationFullBody.getDescription(), is("Hier gibt es alles vom Schimmeljogurt bis zur sprechenden Selleriestange."));
         assertThat(locationFullBody.getType(), is("LOCAL"));
@@ -62,7 +62,7 @@ public class FrydAPILocationTest extends FrydAPITest {
         APIResponse<Location> responseLocationMinimalBody = frydAPIService.getLocationById(testAppAccessToken, "585157821d33a9228cb281e2");
         Location locationMinimalBody = responseLocationMinimalBody.getFrydDataType();
 
-        assertThat(locationMinimalBody.get_id(), is("585157821d33a9228cb281e2"));
+        assertThat(locationMinimalBody.getId(), is("585157821d33a9228cb281e2"));
         assertThat(locationMinimalBody.getName(), is("Gamitch"));
         assertThat(locationMinimalBody.getDescription(), is("fryd Twitch plugin"));
         assertThat(locationMinimalBody.getType(), is("ONLINE"));

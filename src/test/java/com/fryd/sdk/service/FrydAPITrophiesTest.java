@@ -24,7 +24,7 @@ public class FrydAPITrophiesTest extends FrydAPITest {
         assertThat(trophies.size(), is(10));
 
         for (Trophy trophy : trophies) {
-            assertThat(trophy.get_id(), notNullValue());
+            assertThat(trophy.getId(), notNullValue());
             assertThat(trophy.getName(), notNullValue());
             assertThat(trophy.getDescription(), notNullValue());
             assertThat(trophy.getType(), nullValue());
@@ -51,7 +51,7 @@ public class FrydAPITrophiesTest extends FrydAPITest {
         assertThat(trophies.size(), is(1));
 
         Trophy theOneAndOnlyTrophy = trophies.get(0);
-        assertThat(theOneAndOnlyTrophy.get_id(), is("58234579a970de1fe42609df"));
+        assertThat(theOneAndOnlyTrophy.getId(), is("58234579a970de1fe42609df"));
         assertThat(theOneAndOnlyTrophy.getName(), is("Museum für vermoderne Kunst komplett Erfolg"));
         assertThat(theOneAndOnlyTrophy.getDescription(), is("Du hast alle normalen Erfolge (die zu keinem Event gehören) von 'Museum für vermoderne Kunst' erreicht."));
         assertThat(theOneAndOnlyTrophy.getType(), nullValue());
@@ -74,7 +74,7 @@ public class FrydAPITrophiesTest extends FrydAPITest {
         APIResponse<Trophy> responseTrophyFullBody = frydAPIService.getTrophyById(testAppAccessToken, "587e5c27c550b92754959cfe");
 
         Trophy theOneAndOnlyTrophy = responseTrophyFullBody.getFrydDataType();
-        assertThat(theOneAndOnlyTrophy.get_id(), is("587e5c27c550b92754959cfe"));
+        assertThat(theOneAndOnlyTrophy.getId(), is("587e5c27c550b92754959cfe"));
         assertThat(theOneAndOnlyTrophy.getName(), is("Gamitch komplett Erfolg"));
         assertThat(theOneAndOnlyTrophy.getDescription(), is("Du hast alle normalen Erfolge (die zu keinem Event gehören) von 'Gamitch' erreicht."));
         assertThat(theOneAndOnlyTrophy.getType(), is("GENERATED"));

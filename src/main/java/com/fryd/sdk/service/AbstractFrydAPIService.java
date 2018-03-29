@@ -12,6 +12,7 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import com.google.common.base.Strings;
 import lombok.Getter;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,57 +69,71 @@ public abstract class AbstractFrydAPIService {
 
     protected <T> APIResponse<T> handleRequest(T t, OAuthRequest request) throws InterruptedException, ExecutionException, IOException {
         Response response = oauthService.execute(request);
-        System.out.println(response.getCode()+" message:"+response.getMessage()+" headers:"+response.getHeaders()+" body:"+response.getBody());
+//        System.out.println(response.getCode()+" message:"+response.getMessage()+" headers:"+response.getHeaders()+" body:"+response.getBody());
+        return handleRequestInternal(t, response);
 
-        String responseJson = response.getBody();
-
-        return handleRequestInternal(t, responseJson);
     }
 
     protected <T> APIResponse<T> handleRequestAsync(T t, OAuthRequest request) throws InterruptedException, ExecutionException, IOException {
         Future<Response> responseFuture = oauthService.executeAsync(request);
         Response response = responseFuture.get();
-        String responseJson = response.getBody();
-
-        return handleRequestInternal(t, responseJson);
+        return handleRequestInternal(t, response);
     }
 
     @SuppressWarnings("unchecked")
-    protected <T> APIResponse<T> handleRequestInternal(T t, String responseJson) throws IOException {
-        JSONObject responseJsonObj = new JSONObject(responseJson);
+    protected <T> APIResponse<T> handleRequestInternal(T t, Response response) throws IOException {
+        String responseJson = response.getBody();
 
-        JSONObject jsonResponse = null;
-        JSONObject jsonMessage = null;
-        APIResponse<T> apiResponse = new APIResponse<>();
+        // If there is no body, there must have been an error
+        if (Strings.isNullOrEmpty(responseJson)) {
+            APIResponse<T> errorResponse = new APIResponse<>();
+            String message = response.getCode() + " " + response.getMessage();
 
-        // Get response with actual answer, if there
-        try {
-            jsonResponse = responseJsonObj.getJSONObject("response");
-        } catch (JSONException ignored) {
-            // Can be there or not, no big deal
+            String authenticateHeader = response.getHeader("WWW-Authenticate");
+            if (!Strings.isNullOrEmpty(authenticateHeader)) {
+                message = message + " (" + authenticateHeader + ")";
+            }
+            errorResponse.setType("ERROR");
+            errorResponse.setMessage(message);
+
+            return errorResponse;
+        }else {
+            JSONObject responseJsonObj = new JSONObject(responseJson);
+
+            JSONObject jsonResponse = null;
+            JSONObject jsonMessage = null;
+            APIResponse<T> apiResponse = new APIResponse<>();
+
+            // Get response with actual answer, if there
+            try {
+                jsonResponse = responseJsonObj.getJSONObject("response");
+            } catch (JSONException ignored) {
+                // Can be there or not, no big deal
+            }
+
+            if (jsonResponse != null) {
+                T mappedT = (T) mapper.readValue(jsonResponse.toString(), t.getClass());
+                apiResponse.setFrydDataType(mappedT);
+            }
+
+            // Get message in case of an error or info message
+            try {
+                jsonMessage = responseJsonObj.getJSONObject("message");
+            } catch (JSONException ignored) {
+                // Can be there or not, no big deal
+            }
+
+            if (jsonMessage != null) {
+                apiResponse.setMessage(jsonMessage.getString("text"));
+                apiResponse.setType(jsonMessage.getString("type"));
+            }
+
+            String uid = responseJsonObj.getString("uid");
+            apiResponse.setUid(uid);
+
+            return apiResponse;
         }
 
-        if (jsonResponse != null) {
-            T mappedT = (T) mapper.readValue(jsonResponse.toString(), t.getClass());
-            apiResponse.setFrydDataType(mappedT);
-        }
-
-        // Get message in case of an error or info message
-        try {
-            jsonMessage = responseJsonObj.getJSONObject("message");
-        } catch (JSONException ignored) {
-            // Can be there or not, no big deal
-        }
-
-        if (jsonMessage != null) {
-            apiResponse.setMessage(jsonMessage.getString("text"));
-            apiResponse.setType(jsonMessage.getString("type"));
-        }
-
-        String uid = responseJsonObj.getString("uid");
-        apiResponse.setUid(uid);
-
-        return apiResponse;
     }
 
     protected APIResponse<List<Trophylist>> transformTrophylistResponse(APIResponse<Trophylist.Trophylists> oldResponse) {
