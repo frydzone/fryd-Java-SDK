@@ -3,10 +3,7 @@ package com.fryd.sdk.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fryd.sdk.model.APIResponse;
-import com.fryd.sdk.model.Location;
-import com.fryd.sdk.model.Trophy;
-import com.fryd.sdk.model.Trophylist;
+import com.fryd.sdk.model.*;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
@@ -34,10 +31,10 @@ public abstract class AbstractFrydAPIService {
             .registerModule(new Jdk8Module())
             .registerModule(new JavaTimeModule());
 
-    private final OAuth20Service oauthService;
+    protected final OAuth20Service oauthService;
 
     @Getter
-    private final String BASE_API_URL;
+    protected final String BASE_API_URL;
 
     public AbstractFrydAPIService(OAuth20Service oauthService, String baseAPIUrl) {
         this.oauthService = oauthService;
@@ -59,6 +56,14 @@ public abstract class AbstractFrydAPIService {
     public abstract APIResponse<Trophy> getTrophyById(OAuth2AccessToken appAccessToken, String trophyId) throws InterruptedException, ExecutionException, IOException;
 
     public abstract Future<APIResponse<Trophy>> getTrophyByIdAsync(OAuth2AccessToken appAccessToken, String trophyId);
+
+    public abstract APIResponse<User> getUserInformation(OAuth2AccessToken userAccessToken) throws InterruptedException, ExecutionException, IOException;
+
+    public abstract Future<APIResponse<User>> getUserInformationAsync(OAuth2AccessToken userAccessToken);
+
+    public abstract APIResponse<String> triggerTrophyProgress(OAuth2AccessToken userAccessToken, OAuth2AccessToken appAccessToken, String locationId, String secret) throws InterruptedException, ExecutionException, IOException;
+
+    public abstract Future<APIResponse<String>> triggerTrophyProgressAsync(OAuth2AccessToken userAccessToken, OAuth2AccessToken appAccessToken, String locationId, String secret);
 
     protected OAuthRequest createRequest(OAuth2AccessToken appAccessToken, String urlAddon) {
         OAuthRequest request = new OAuthRequest(Verb.POST, BASE_API_URL+urlAddon);
@@ -87,13 +92,20 @@ public abstract class AbstractFrydAPIService {
         // If there is no body, there must have been an error
         if (Strings.isNullOrEmpty(responseJson)) {
             APIResponse<T> errorResponse = new APIResponse<>();
-            String message = response.getCode() + " " + response.getMessage();
+            int code = response.getCode();
+            String message = code + " " + response.getMessage();
 
             String authenticateHeader = response.getHeader("WWW-Authenticate");
             if (!Strings.isNullOrEmpty(authenticateHeader)) {
                 message = message + " (" + authenticateHeader + ")";
             }
-            errorResponse.setType("ERROR");
+
+            if (code >= 200 && code <= 399) {
+                errorResponse.setType("INFO");
+            }else {
+                errorResponse.setType("ERROR");
+            }
+
             errorResponse.setMessage(message);
 
             return errorResponse;

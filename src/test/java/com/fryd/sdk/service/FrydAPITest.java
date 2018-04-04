@@ -12,6 +12,8 @@ public abstract class FrydAPITest {
 
     protected OAuth2AccessToken testAppAccessToken = new OAuth2AccessToken("1");
 
+    protected OAuth2AccessToken testUserAccessToken = new OAuth2AccessToken("2");
+
     @Before
     public void setUpMockInterface() throws Exception {
         frydAPIService = new FrydAPIServiceMock();

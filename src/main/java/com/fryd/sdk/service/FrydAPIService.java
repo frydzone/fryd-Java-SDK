@@ -3,6 +3,7 @@ package com.fryd.sdk.service;
 import com.fryd.sdk.model.*;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 
 import java.io.IOException;
@@ -105,8 +106,46 @@ public class FrydAPIService extends AbstractFrydAPIService {
 
     public APIResponse<User> getUserInformation(OAuth2AccessToken userAccessToken) throws InterruptedException, ExecutionException, IOException {
         OAuthRequest request = createRequest(userAccessToken, "/user");
-//        request.setPayload("{\"user_id\":\"token\"}");
         return handleRequest(new User(), request);
+    }
+
+    public Future<APIResponse<User>> getUserInformationAsync(OAuth2AccessToken userAccessToken) {
+        return CompletableFuture.supplyAsync(() -> {
+            APIResponse<User> user = null;
+            try {
+                OAuthRequest request = createRequest(userAccessToken, "/user");
+                user = handleRequestAsync(new User(), request);
+            } catch (InterruptedException | ExecutionException | IOException ex) {
+                logger.log(Level.WARNING, "Failed to get user information", ex);
+            }
+            return user;
+        });
+    }
+
+    public APIResponse<String> triggerTrophyProgress(OAuth2AccessToken userAccessToken, OAuth2AccessToken appAccessToken, String locationId, String secret) throws InterruptedException, ExecutionException, IOException {
+        OAuthRequest request = new OAuthRequest(Verb.POST, BASE_API_URL+"/trophy/check");
+        request.addHeader("app_token", appAccessToken.getAccessToken());
+        request.addHeader("user_token", userAccessToken.getAccessToken());
+        request.setPayload("{\"location_id\":\""+locationId+"\", \"secret\":\""+secret+"\"}");
+
+        return handleRequest("", request);
+    }
+
+    public Future<APIResponse<String>> triggerTrophyProgressAsync(OAuth2AccessToken userAccessToken, OAuth2AccessToken appAccessToken, String locationId, String secret) {
+        return CompletableFuture.supplyAsync(() -> {
+            APIResponse<String> response = null;
+            try {
+                OAuthRequest request = new OAuthRequest(Verb.POST, BASE_API_URL+"/trophy/check");
+                request.addHeader("app_token", appAccessToken.getAccessToken());
+                request.addHeader("user_token", userAccessToken.getAccessToken());
+                request.setPayload("{\"location_id\":\""+locationId+"\", \"secret\":\""+secret+"\"}");
+
+                response = handleRequestAsync("", request);
+            } catch (InterruptedException | ExecutionException | IOException ex) {
+                logger.log(Level.WARNING, "Failed to trigger trophy", ex);
+            }
+            return response;
+        });
     }
 }
 

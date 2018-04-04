@@ -39,6 +39,9 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
     @Setter
     private String trophyJsonResponse = TestModelJsonRepresentation.FULL_TROPHY_JSON;
 
+    @Setter
+    private String userJsonResponse = TestModelJsonRepresentation.FULL_USER_JSON;
+
     @Override
     public APIResponse<Location> getLocationById(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException {
         Response response = new Response(200, "", headers, locationJsonResponse);
@@ -80,6 +83,27 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
 
     @Override
     public Future<APIResponse<Trophy>> getTrophyByIdAsync(OAuth2AccessToken appAccessToken, String trophyId) {
+        return null;
+    }
+
+    @Override
+    public APIResponse<User> getUserInformation(OAuth2AccessToken userAccessToken) throws InterruptedException, ExecutionException, IOException {
+        Response response = new Response(200, "", headers, userJsonResponse);
+        return handleRequestInternal(new User(), response);
+    }
+
+    @Override
+    public Future<APIResponse<User>> getUserInformationAsync(OAuth2AccessToken userAccessToken) {
+        return null;
+    }
+
+    @Override
+    public APIResponse<String> triggerTrophyProgress(OAuth2AccessToken userAccessToken, OAuth2AccessToken appAccessToken, String locationId, String secret) throws InterruptedException, ExecutionException, IOException {
+        return null;
+    }
+
+    @Override
+    public Future<APIResponse<String>> triggerTrophyProgressAsync(OAuth2AccessToken userAccessToken, OAuth2AccessToken appAccessToken, String locationId, String secret) {
         return null;
     }
 }

@@ -1,8 +1,6 @@
 package com.fryd.sdk.service;
 
 import com.fryd.sdk.model.*;
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -43,9 +41,8 @@ public class FrydAPILocationTest extends FrydAPITest {
         assertThat(address.getNr(), is("24"));
         assertThat(address.getCity(), is("Wiesbaden"));
 
-        LocalDateTime createdDateTime = LocalDateTime.of(2016, 10, 31, 0, 0, 0);
         assertThat(locationFullBody.getTrophylistId(), is("57d019d6b9ad433518b1f670"));
-        assertThat(locationFullBody.getCreated(), is(createdDateTime));
+        assertThat(locationFullBody.getCreated(), is(LocalDateTime.of(2016, 10, 31, 0, 0, 0)));
         assertThat(locationFullBody.getOwnerId(), is("57a31fb78f30f31ce41c037f"));
         assertThat(locationFullBody.getStatus(), is("IN_REVIEW"));
         assertThat(locationFullBody.getIconpicId(), is("5ab8f6fab6fa8c324bae81a7"));
@@ -76,9 +73,8 @@ public class FrydAPILocationTest extends FrydAPITest {
         Address address = locationMinimalBody.getAddress();
         assertThat(address, nullValue());
 
-        LocalDateTime createdDateTime = LocalDateTime.of(2016, 12, 14, 0, 0, 0);
         assertThat(locationMinimalBody.getTrophylistId(), is("585157841d33a9228cb281e3"));
-        assertThat(locationMinimalBody.getCreated(), is(createdDateTime));
+        assertThat(locationMinimalBody.getCreated(), is(LocalDateTime.of(2016, 12, 14, 0, 0, 0)));
         assertThat(locationMinimalBody.getOwnerId(), is("57a31fb78f30f31ce41c037f"));
         assertThat(locationMinimalBody.getStatus(), is("ACTIVE"));
         assertThat(locationMinimalBody.getIconpicId(), nullValue());

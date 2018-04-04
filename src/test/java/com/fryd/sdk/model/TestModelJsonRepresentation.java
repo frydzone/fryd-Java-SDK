@@ -84,4 +84,20 @@ public class TestModelJsonRepresentation {
             "\"points\" : 0, \"money\" : 0, \"hidden\" : false, \"order\" : 1,\"iconpic_id\":\"5aba4906b6fa8c324bae81ab\"" +
             ", \"difficulty\" : \"HARD\",\"author_name\" : \"GENERATED\", \"list_name\" : \"Gamitch Erfolge\", \"rarity\" : 0.0}," +
             "\"uid\" : \"22CF96D87599DF3AD6865877\"}";
+
+    public static final String FULL_USER_JSON = "{\"response\":{\"username\":\"Davwe\",\"firstname\":" +
+            "\"Heinz\",\"lastname\":\"Hummer\",\"email\":\"heinz@hummer.eu\",\"address\":" +
+            "{\"street\":\"Hummer Höhe\",\"nr\":\"17\",\"postal_code\":66666,\"city\":\"Fischbach\"}," +
+            "\"xp\":20,\"avatarpic_id\":\"57a33c288f30f31a7cdc20c6\",\"id\":\"57a31fb78f30f31ce41c037p\",\"" +
+            "birthday\":\"1986-11-01T00:00:00Z\",\"level\":2,\"progress\":[{\"list_id\":\"57d019d6b9ad433518b1f665\"," +
+            "\"trophy_id\":\"57d13ba1b9ad43348cd2399a\",\"points\":10,\"achieved\":true,\"location_id\":" +
+            "\"57d014e2b9ad432b045c9aae\",\"name\":\"Der Erste\",\"location_name\":\"fryd\",\"id\":" +
+            "\"58eb9af01951b8185c0fa01b\",\"last_updated\":\"2016-06-01T01:00:00Z\"},{\"list_id\":" +
+            "\"57d019d6b9ad433518b1f666\",\"trophy_id\":\"57d13ba1b9ad43348cd2399d\",\"points\":5,\"achieved\":true," +
+            "\"location_id\":\"57d014e2b9ad432b045c9aae\",\"name\":\"Winning :)\",\"location_name\":\"fryd\"," +
+            "\"id\":\"58eb9b891951b8185c0fa01j\",\"last_updated\":\"2016-05-05T01:00:00Z\"}]},\"" +
+            "uid\":\"2445D0AE86F9531A29D8360E\"}";
+
+    public static final String MINIMAL_USER_JSON = "{\"response\":{\"username\":\"tyranted\",\"xp\":25,\"id\":" +
+            "\"57a31fb78f30f31ce41c0387\",\"level\":2},\"uid\":\"FCB5376E1F0164663B3AD9B5\"}";
 }
