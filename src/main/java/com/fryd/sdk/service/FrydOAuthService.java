@@ -126,4 +126,24 @@ public class FrydOAuthService {
         return this.oauthService.getAccessTokenClientCredentialsGrantAsync();
     }
 
+    /**
+     * Gets an Access Token with the Scope "AppInfo" or "UserInfo"
+     * depending on the provided token, using an existing Token.
+     *
+     * @return An Access Token with the scope "AppInfo" or "UserInfo"
+     */
+    public OAuth2AccessToken refreshToken(OAuth2AccessToken anyAccessToken) throws InterruptedException, ExecutionException, IOException {
+        return this.oauthService.refreshAccessToken(anyAccessToken.getRefreshToken());
+    }
+
+    /**
+     * Gets an Access Token, in an async way, with the Scope "AppInfo" or "UserInfo"
+     * depending on the provided token, using an existing Token.
+     *
+     * @return An Access Token with the scope "AppInfo" or "UserInfo"
+     */
+    public Future<OAuth2AccessToken> refreshTokenAsync(OAuth2AccessToken anyAccessToken) {
+        return this.oauthService.refreshAccessTokenAsync(anyAccessToken.getRefreshToken());
+    }
+
 }
