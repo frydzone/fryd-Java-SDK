@@ -1,6 +1,8 @@
 package com.fryd.sdk.provider;
 
 /**
+ * Basic Provider for fryd Production Environment
+ *
  * @author Kristoffer Pöpperling, fryd
  */
 public class FrydOauthProvider extends AbstractFrydProvider {

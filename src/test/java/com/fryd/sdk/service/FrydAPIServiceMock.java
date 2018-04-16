@@ -43,13 +43,13 @@ public class FrydAPIServiceMock extends AbstractFrydAPIService {
     private String userJsonResponse = TestModelJsonRepresentation.FULL_USER_JSON;
 
     @Override
-    public APIResponse<Location> getLocationById(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException {
+    public APIResponse<Location> getFrydSpotById(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException {
         Response response = new Response(200, "", headers, locationJsonResponse);
         return handleRequestInternal(new Location(), response);
     }
 
     @Override
-    public Future<APIResponse<Location>> getLocationByIdAsync(OAuth2AccessToken appAccessToken, String locationId) {
+    public Future<APIResponse<Location>> getFrydSpotByIdAsync(OAuth2AccessToken appAccessToken, String locationId) {
         return null;
     }
 

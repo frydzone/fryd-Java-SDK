@@ -1,7 +1,7 @@
 package com.fryd.sdk.provider;
 
 /**
- * yey
+ * Provider for fryd Local Testing Environment
  *
  * @author Kristoffer Pöpperling, fryd
  */

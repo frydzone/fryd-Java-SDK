@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
+ * This class represents an address used by a location or user.
+ *
  * @author Kristoffer Pöpperling, fryd
  */
 @Getter @Setter @ToString

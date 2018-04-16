@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
+ * This class represents the opening times used by a location.
+ *
  * @author Kristoffer Pöpperling, fryd
  */
 @Getter @Setter @ToString
