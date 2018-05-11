@@ -222,7 +222,7 @@ public class FrydAPIService extends AbstractFrydAPIService {
      * @throws IOException
      */
     public APIResponse<String> triggerTrophyProgress(OAuth2AccessToken userAccessToken, OAuth2AccessToken appAccessToken, String locationId, String secret) throws InterruptedException, ExecutionException, IOException {
-        OAuthRequest request = new OAuthRequest(Verb.POST, BASE_API_URL+"/trophy/check");
+        OAuthRequest request = new OAuthRequest(Verb.POST, BASE_API_URL + "/trophycheck");
         request.addHeader("app_token", appAccessToken.getAccessToken());
         request.addHeader("user_token", userAccessToken.getAccessToken());
         request.setPayload("{\"location_id\":\""+locationId+"\", \"secret\":\""+secret+"\"}");
@@ -243,7 +243,7 @@ public class FrydAPIService extends AbstractFrydAPIService {
         return CompletableFuture.supplyAsync(() -> {
             APIResponse<String> response = null;
             try {
-                OAuthRequest request = new OAuthRequest(Verb.POST, BASE_API_URL+"/trophy/check");
+                OAuthRequest request = new OAuthRequest(Verb.POST, BASE_API_URL + "/trophycheck");
                 request.addHeader("app_token", appAccessToken.getAccessToken());
                 request.addHeader("user_token", userAccessToken.getAccessToken());
                 request.setPayload("{\"location_id\":\""+locationId+"\", \"secret\":\""+secret+"\"}");
