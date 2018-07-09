@@ -1,8 +1,6 @@
 # Welcome to the Java SDK for fryd
 
-<a href="https://circleci.com/gh/frydzone/fryd-Java-SDK">
-  <img src="https://circleci.com/gh/frydzone/fryd-Java-SDK.svg?style=shield&circle-token=:circle-token" />
-</a>
+[![Circle CI](https://circleci.com/gh/frydzone/fryd-Java-SDK.png?style=badge)](https://circleci.com/gh/frydzone/fryd-Java-SDK)
 
 ## What is this for?
 
