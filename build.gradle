@@ -11,6 +11,7 @@ apply plugin: 'maven-publish'
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -74,11 +75,4 @@ publishing {
             }
         }
     }
-}
-
-
-repositories {
-    mavenLocal()
-
-//    jcenter()
 }

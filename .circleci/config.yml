@@ -5,6 +5,11 @@
 version: 2
 jobs:
   build:
+
+    branches:
+      only:
+        - master
+
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
@@ -43,7 +48,7 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # build
-      - run: gradle build
+      - run: gradle build publish
 
       - store_artifacts:
           path: ./build/libs
