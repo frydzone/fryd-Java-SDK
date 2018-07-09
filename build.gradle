@@ -1,11 +1,12 @@
 group 'com.fryd.sdk'
-version '0.8.2'
+version '0.8.8'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
+    gradleVersion = '4.8.1'
 }
 
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
 
@@ -25,4 +26,59 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name 'MIT License'
+            url 'https://opensource.org/licenses/MIT'
+            distribution 'repo'
+        }
+    }
+    developers {
+        developer {
+            id 'd4rk463'
+            name 'Kristoffer Pöpperling'
+            email 'poeppi@fryd.zone'
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+jar {
+    from rootProject.file('LICENSE')
+    from rootProject.file('README.md')
+}
+
+publishing {
+    publications {
+        binaryAndSources(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'fryd.zone Java SDK BETA.')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+
+repositories {
+    mavenLocal()
+
+//    jcenter()
 }
