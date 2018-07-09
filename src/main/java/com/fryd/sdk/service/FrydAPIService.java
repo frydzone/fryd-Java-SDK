@@ -80,7 +80,7 @@ public class FrydAPIService extends AbstractFrydAPIService {
     }
 
     /**
-     * Gets a list of trophylists (including events) of your Location#
+     * Gets a list of trophylists (including events) of your Location
      * in an asynchronous way
      *
      * @param appAccessToken A Token with the scope "AppInfo"
