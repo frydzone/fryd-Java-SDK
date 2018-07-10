@@ -1,4 +1,4 @@
-group 'com.fryd.sdk'
+group 'zone.fryd.sdk'
 version '0.8.8'
 
 task wrapper(type: Wrapper) {
