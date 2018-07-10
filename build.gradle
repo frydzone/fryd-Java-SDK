@@ -7,6 +7,8 @@ task wrapper(type: Wrapper) {
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.8
 
@@ -29,23 +31,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
-def pomConfig = {
-    licenses {
-        license {
-            name 'MIT License'
-            url 'https://opensource.org/licenses/MIT'
-            distribution 'repo'
-        }
-    }
-    developers {
-        developer {
-            id 'd4rk463'
-            name 'Kristoffer Pöpperling'
-            email 'poeppi@fryd.zone'
-        }
-    }
-}
-
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
@@ -56,22 +41,55 @@ task javadocJar(type: Jar) {
     from javadoc
 }
 
-jar {
-    from rootProject.file('LICENSE')
-    from rootProject.file('README.md')
+artifacts {
+    archives javadocJar, sourcesJar
 }
 
-publishing {
-    publications {
-        binaryAndSources(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
+signing {
+    sign configurations.archives
+}
 
-            pom.withXml {
-                def root = asNode()
-                root.appendNode('description', 'fryd.zone Java SDK BETA.')
-                root.children().last() + pomConfig
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'fryd Java SDK'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'An SDK for using the fryd.zone API. Bring gamification to your application.'
+                url 'https://www.fryd.zone'
+
+                scm {
+                    url 'https://github.com/frydzone/frydSDK.git'
+                    connection 'scm:git@https://github.com/frydzone/frydSDK.git'
+                    developerConnection 'scm:git@https://github.com/frydzone/frydSDK.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'https://opensource.org/licenses/MIT'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'd4rk463'
+                        name 'Kristoffer Pöpperling'
+                        email 'poeppi@fryd.zone'
+                    }
+                }
             }
         }
     }
