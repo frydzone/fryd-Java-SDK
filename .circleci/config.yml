@@ -36,7 +36,7 @@ jobs:
           name: chmod permissions
           command: chmod +x ./gradlew
 
-      - run: gradle dependencies
+      - run: gradle dependencies -PossrhUsername='' -PossrhPassword=''
 
       - save_cache:
           paths:
@@ -44,7 +44,7 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # build
-      - run: gradle jar test
+      - run: gradle jar test -PossrhUsername='' -PossrhPassword=''
 
       - store_artifacts:
           path: ./build/libs
