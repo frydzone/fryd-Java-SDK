@@ -35,4 +35,5 @@ node_modules
 /file-uploads
 d4rk463.asc
 secret-key.pgp
+public_key.asc
 gradle.properties
