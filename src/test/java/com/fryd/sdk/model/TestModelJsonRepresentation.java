@@ -91,11 +91,15 @@ public class TestModelJsonRepresentation {
             "\"xp\":20,\"avatarpic_id\":\"57a33c288f30f31a7cdc20c6\",\"id\":\"57a31fb78f30f31ce41c037p\",\"" +
             "birthday\":\"1986-11-01T00:00:00Z\",\"level\":2,\"progress\":[{\"list_id\":\"57d019d6b9ad433518b1f665\"," +
             "\"trophy_id\":\"57d13ba1b9ad43348cd2399a\",\"points\":10,\"achieved\":true,\"location_id\":" +
-            "\"57d014e2b9ad432b045c9aae\",\"name\":\"Der Erste\",\"location_name\":\"fryd\",\"id\":" +
-            "\"58eb9af01951b8185c0fa01b\",\"last_updated\":\"2016-06-01T01:00:00Z\"},{\"list_id\":" +
-            "\"57d019d6b9ad433518b1f666\",\"trophy_id\":\"57d13ba1b9ad43348cd2399d\",\"points\":5,\"achieved\":true," +
-            "\"location_id\":\"57d014e2b9ad432b045c9aae\",\"name\":\"Winning :)\",\"location_name\":\"fryd\"," +
-            "\"id\":\"58eb9b891951b8185c0fa01j\",\"last_updated\":\"2016-05-05T01:00:00Z\"}]},\"" +
+            "\"57d014e2b9ad432b045c9aae\",\"location_name\":\"fryd\",\"name\":\"Der Erste\",\"iconpic_id\"" +
+            ":null,\"id\":\"58eb9af01951b8185c0fa01b\",\"last_updated\":\"2016-06-01T01:00:00Z\"}," +
+            "{\"list_id\":\"57d019d6b9ad433518b1f666\",\"trophy_id\":\"57d13ba1b9ad43348cd2399d\",\"points\"" +
+            ":5,\"achieved\":true,\"location_id\":\"57d014e2b9ad432b045c9aae\",\"location_name\":\"fryd\",\"" +
+            "name\":\"Winning :)\",\"iconpic_id\":\"323fd2d23s23d\",\"id\":\"58eb9b891951b8185c0fa01j\",\"last_updated\"" +
+            ":\"2016-05-05T01:00:00Z\"},{\"id\":\"5b1fcd55479edc43ec349072\",\"list_id\":\"57d019d6b9ad433518b1f665\"" +
+            ",\"trophy_id\":\"582061f5a970de15d0bc73GZ\",\"last_updated\":\"2018-06-12T14:40:52Z\",\"" +
+            "points\":10,\"achieved\":false,\"counter_progress\":2,\"location_id\":\"57d014e2b9ad432b045c9aae\"" +
+            ",\"location_name\":\"fryd\",\"name\":\"Der dreifache Counter\",\"iconpic_id\":null,\"counter\":3}]},\"" +
             "uid\":\"2445D0AE86F9531A29D8360E\"}";
 
     public static final String MINIMAL_USER_JSON = "{\"response\":{\"username\":\"tyranted\",\"xp\":25,\"id\":" +

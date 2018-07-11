@@ -59,4 +59,23 @@ public class Progress {
      */
     private String name;
 
+    /**
+     * Id of the icon picture.
+     * To get the picture URL use this pattern
+     * http://www.fryd.zone/images/trophy/:trophy_id/:pic_id
+     */
+    @JsonProperty("iconpic_id")
+    private String iconpicId;
+
+    /**
+     * If this trophy is a counter trophy, this is how many times it must be triggered to be achieved
+     */
+    private Integer counter;
+
+    /**
+     * If this trophy is a counter trophy, this is how many the user has already triggered it
+     */
+    @JsonProperty("counter_progress")
+    private Integer counterProgress;
+
 }
