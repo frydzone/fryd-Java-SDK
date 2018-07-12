@@ -25,9 +25,19 @@ For a detailed view of the API please have a look [here](http://publicwiki.fryd.
 Small disclamer before we start. This SDK is basically a wrapper of [scribejava](https://github.com/scribejava/scribejava). Sooner or later we will add our API to their supported APIs but we are not there yet.
 
 ### Where to find the library?
+You can pull the frydSDK from the central maven repository, just add this to your pom.xml file:
 
-Comming soon.... sorry
-
+```xml
+<dependency>
+    <groupId>zone.fryd.sdk</groupId>
+    <artifactId>frydSDK</artifactId>
+    <version>0.8.8</version>
+</dependency>
+```
+or this to you build.gradle file:
+```groovy
+compile 'zone.fryd.sdk:frydSDK:0.8.8'
+```
 ### How to make a connection to fryd?
 
 Put your fryd Spot in "Test Mode" in the Developers Dashboard. When your spot is in test mode you can test every trophy without compromising your profile. After quitting the test mode, every progress made during the test by you spot will be reset.
