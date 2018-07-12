@@ -34,13 +34,13 @@ You can pull the frydSDK from the central maven repository, just add this to you
     <version>0.8.8</version>
 </dependency>
 ```
-or this to you build.gradle file:
+or this to your build.gradle file:
 ```groovy
 compile 'zone.fryd.sdk:frydSDK:0.8.8'
 ```
 ### How to make a connection to fryd?
 
-Put your fryd Spot in "Test Mode" in the Developers Dashboard. When your spot is in test mode you can test every trophy without compromising your profile. After quitting the test mode, every progress made during the test by you spot will be reset.
+Put your fryd Spot in "Test Mode" in the Developers Dashboard. When your spot is in test mode you can test every trophy without compromising your profile. After quitting the test mode, every progress made during the test by you will be reset.
 
 Ohhh and one other thing: Every function has an *async* brother, so it's for you to decide what you want to use.
 
