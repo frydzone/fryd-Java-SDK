@@ -6,7 +6,7 @@
 
 With this SDK, you can build Trophies into your Application and get access to fryds database. For more information visit our [public wiki](http://publicwiki.fryd.zone)... which is only in German at the moment (Sorry).
 
-The fryd API basically works like any other OATH2 Interface with a (sightly different) REST API. Meaning you need to get a token, either of your fryd Spot or a user (depending on what you want to know), to use the API.
+The fryd API basically works like any other OAUTH2 Interface with a (sightly different) REST API. Meaning you need to get a token, either of your fryd Spot or a user (depending on what you want to know), to use the API.
 
 For a detailed view of the API please have a look [here](http://publicwiki.fryd.zone/index.php?title=Schnittstellen_Beschreibung).
 
