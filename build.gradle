@@ -1,5 +1,5 @@
 group 'zone.fryd.sdk'
-version '0.8.8'
+version '0.8.10'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.8.1'
@@ -68,7 +68,7 @@ uploadArchives {
                 name 'fryd Java SDK'
                 packaging 'jar'
                 // optionally artifactId can be defined here
-                description 'An SDK for using the fryd.zone API. Bring gamification to your application.'
+                description 'The SDK for using the fryd.zone API. Bring gamification to your application.'
                 url 'https://www.fryd.zone'
 
                 scm {

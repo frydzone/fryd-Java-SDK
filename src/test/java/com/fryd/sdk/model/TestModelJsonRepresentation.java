@@ -88,7 +88,7 @@ public class TestModelJsonRepresentation {
     public static final String FULL_USER_JSON = "{\"response\":{\"username\":\"Davwe\",\"firstname\":" +
             "\"Heinz\",\"lastname\":\"Hummer\",\"email\":\"heinz@hummer.eu\",\"address\":" +
             "{\"street\":\"Hummer Höhe\",\"nr\":\"17\",\"postal_code\":66666,\"city\":\"Fischbach\"}," +
-            "\"xp\":20,\"avatarpic_id\":\"57a33c288f30f31a7cdc20c6\",\"id\":\"57a31fb78f30f31ce41c037p\",\"" +
+            "\"xp\":20,\"sex\":\"MALE\",\"avatarpic_id\":\"57a33c288f30f31a7cdc20c6\",\"id\":\"57a31fb78f30f31ce41c037p\",\"" +
             "birthday\":\"1986-11-01T00:00:00Z\",\"level\":2,\"progress\":[{\"list_id\":\"57d019d6b9ad433518b1f665\"," +
             "\"trophy_id\":\"57d13ba1b9ad43348cd2399a\",\"points\":10,\"achieved\":true,\"location_id\":" +
             "\"57d014e2b9ad432b045c9aae\",\"location_name\":\"fryd\",\"name\":\"Der Erste\",\"iconpic_id\"" +

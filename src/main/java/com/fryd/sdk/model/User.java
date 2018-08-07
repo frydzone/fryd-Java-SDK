@@ -44,6 +44,11 @@ public class User {
     private LocalDate birthday;
 
     /**
+     * Gender of the user
+     */
+    private String sex;
+
+    /**
      * Address of the user, only filled if allowed by the user
      */
     private Address address;

@@ -35,6 +35,7 @@ public class FrydAPIUserTest extends FrydAPITest {
         assertThat(user.getAvatarPicId(), is("57a33c288f30f31a7cdc20c6"));
         assertThat(user.getBirthday(), is(LocalDate.of(1986, 11, 1)));
         assertThat(user.getLevel(), is(2));
+        assertThat(user.getSex(), is("MALE"));
 
         List<Progress> progressList = user.getProgress();
         for (Progress progress : progressList) {
