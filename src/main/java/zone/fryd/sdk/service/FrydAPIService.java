@@ -42,6 +42,25 @@ public class FrydAPIService extends AbstractFrydAPIService {
     }
 
     /**
+     * Gets the Location Information (also called fryd Spot Information)
+     * that is part of your Account
+     *
+     * @param appAccessToken A Token with the scope "AppInfo"
+     * @param locationId     The id of the location/fryd Spot you own
+     * @param fields         The fields you want in your result
+     * @return The location you have asked for
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws IOException
+     */
+    public APIResponse<Location> getFrydSpotById(OAuth2AccessToken appAccessToken, String locationId, String... fields) throws InterruptedException, ExecutionException, IOException {
+        String fieldsString = createFieldsString(fields);
+        OAuthRequest request = createRequest(appAccessToken, "/location?fields=" + fieldsString);
+        request.setPayload("{\"location_id\":\"" + locationId + "\"}");
+        return handleRequest(new Location(), request);
+    }
+
+    /**
      * Gets Location Information (also called fryd Spot Information)
      * that is part of your Account in an asynchronous way
      *
@@ -55,6 +74,30 @@ public class FrydAPIService extends AbstractFrydAPIService {
             try {
                 OAuthRequest request = createRequest(appAccessToken, "/location");
                 request.setPayload("{\"location_id\":\""+locationId+"\"}");
+                location = handleRequestAsync(new Location(), request);
+            } catch (InterruptedException | ExecutionException | IOException ex) {
+                logger.log(Level.WARNING, "Failed to get location by id", ex);
+            }
+            return location;
+        });
+    }
+
+    /**
+     * Gets Location Information (also called fryd Spot Information)
+     * that is part of your Account in an asynchronous way
+     *
+     * @param appAccessToken A Token with the scope "AppInfo"
+     * @param locationId     The id of the location/fryd Spot you own
+     * @param fields         The fields you want in your result
+     * @return The location you have asked for
+     */
+    public Future<APIResponse<Location>> getFrydSpotByIdAsync(OAuth2AccessToken appAccessToken, String locationId, String... fields) {
+        return CompletableFuture.supplyAsync(() -> {
+            APIResponse<Location> location = null;
+            try {
+                String fieldsString = createFieldsString(fields);
+                OAuthRequest request = createRequest(appAccessToken, "/location?fields=" + fieldsString);
+                request.setPayload("{\"location_id\":\"" + locationId + "\"}");
                 location = handleRequestAsync(new Location(), request);
             } catch (InterruptedException | ExecutionException | IOException ex) {
                 logger.log(Level.WARNING, "Failed to get location by id", ex);
@@ -156,6 +199,24 @@ public class FrydAPIService extends AbstractFrydAPIService {
 
     /**
      * Gets trophy information of a trophy from one of your trophylists/events
+     *
+     * @param appAccessToken A Token with the scope "AppInfo"
+     * @param trophyId       An id of a trophy of one of your trophylists/events
+     * @param fields         The fields you want in your result
+     * @return A trophy
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws IOException
+     */
+    public APIResponse<Trophy> getTrophyById(OAuth2AccessToken appAccessToken, String trophyId, String... fields) throws InterruptedException, ExecutionException, IOException {
+        String fieldsString = createFieldsString(fields);
+        OAuthRequest request = createRequest(appAccessToken, "/trophy?fields=" + fieldsString);
+        request.setPayload("{\"trophy_id\":\"" + trophyId + "\"}");
+        return handleRequest(new Trophy(), request);
+    }
+
+    /**
+     * Gets trophy information of a trophy from one of your trophylists/events
      * in an asynchronous way
      *
      * @param appAccessToken A Token with the scope "AppInfo"
@@ -168,6 +229,30 @@ public class FrydAPIService extends AbstractFrydAPIService {
             try {
                 OAuthRequest request = createRequest(appAccessToken, "/trophy");
                 request.setPayload("{\"trophy_id\":\""+trophyId+"\"}");
+                trophy = handleRequestAsync(new Trophy(), request);
+            } catch (InterruptedException | ExecutionException | IOException ex) {
+                logger.log(Level.WARNING, "Failed to get trophy by id", ex);
+            }
+            return trophy;
+        });
+    }
+
+    /**
+     * Gets trophy information of a trophy from one of your trophylists/events
+     * in an asynchronous way
+     *
+     * @param appAccessToken A Token with the scope "AppInfo"
+     * @param trophyId       An id of a trophy of one of your trophylists/events
+     * @param fields         The fields you want in your result
+     * @return A trophy
+     */
+    public Future<APIResponse<Trophy>> getTrophyByIdAsync(OAuth2AccessToken appAccessToken, String trophyId, String... fields) {
+        return CompletableFuture.supplyAsync(() -> {
+            APIResponse<Trophy> trophy = null;
+            try {
+                String fieldsString = createFieldsString(fields);
+                OAuthRequest request = createRequest(appAccessToken, "/trophy?fields=" + fieldsString);
+                request.setPayload("{\"trophy_id\":\"" + trophyId + "\"}");
                 trophy = handleRequestAsync(new Trophy(), request);
             } catch (InterruptedException | ExecutionException | IOException ex) {
                 logger.log(Level.WARNING, "Failed to get trophy by id", ex);
@@ -191,6 +276,22 @@ public class FrydAPIService extends AbstractFrydAPIService {
     }
 
     /**
+     * Gets the Userinformation of the user whos token this is
+     *
+     * @param userAccessToken A Token with the scope "UserInfo"
+     * @param fields          The fields you want in your result
+     * @return A user
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws IOException
+     */
+    public APIResponse<User> getUserInformation(OAuth2AccessToken userAccessToken, String... fields) throws InterruptedException, ExecutionException, IOException {
+        String fieldsString = createFieldsString(fields);
+        OAuthRequest request = createRequest(userAccessToken, "/user?fields=" + fieldsString);
+        return handleRequest(new User(), request);
+    }
+
+    /**
      * Gets the Userinformation of the user whos token this is in an asynchronous way
      *
      * @param userAccessToken A Token with the scope "UserInfo"
@@ -201,6 +302,27 @@ public class FrydAPIService extends AbstractFrydAPIService {
             APIResponse<User> user = null;
             try {
                 OAuthRequest request = createRequest(userAccessToken, "/user");
+                user = handleRequestAsync(new User(), request);
+            } catch (InterruptedException | ExecutionException | IOException ex) {
+                logger.log(Level.WARNING, "Failed to get user information", ex);
+            }
+            return user;
+        });
+    }
+
+    /**
+     * Gets the Userinformation of the user whos token this is in an asynchronous way
+     *
+     * @param userAccessToken A Token with the scope "UserInfo"
+     * @param fields          The fields you want in your result
+     * @return A user
+     */
+    public Future<APIResponse<User>> getUserInformationAsync(OAuth2AccessToken userAccessToken, String... fields) {
+        return CompletableFuture.supplyAsync(() -> {
+            APIResponse<User> user = null;
+            try {
+                String fieldsString = createFieldsString(fields);
+                OAuthRequest request = createRequest(userAccessToken, "/user?fields=" + fieldsString);
                 user = handleRequestAsync(new User(), request);
             } catch (InterruptedException | ExecutionException | IOException ex) {
                 logger.log(Level.WARNING, "Failed to get user information", ex);

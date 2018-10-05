@@ -165,4 +165,16 @@ public abstract class AbstractFrydAPIService {
         }
         return new APIResponse<>(trophies, oldResponse.getType(), oldResponse.getMessage(), oldResponse.getUid());
     }
+
+    protected String createFieldsString(String[] fields) {
+        StringBuilder fieldsString = new StringBuilder();
+        if (fields.length > 0) {
+            fieldsString.append(fields[0]);
+        }
+        for (int i = 1; i < fields.length; i++) {
+            fieldsString.append(",").append(fields[i]);
+        }
+
+        return fieldsString.toString();
+    }
 }
