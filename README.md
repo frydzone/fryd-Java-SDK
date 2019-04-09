@@ -31,12 +31,12 @@ You can pull the frydSDK from the central maven repository, just add this to you
 <dependency>
     <groupId>zone.fryd.sdk</groupId>
     <artifactId>frydSDK</artifactId>
-    <version>0.9</version>
+    <version>0.9.10</version>
 </dependency>
 ```
 or this to your build.gradle file:
 ```groovy
-compile 'zone.fryd.sdk:frydSDK:0.9'
+compile 'zone.fryd.sdk:frydSDK:0.9.10'
 ```
 ### How to make a connection to fryd?
 

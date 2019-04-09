@@ -17,7 +17,7 @@ public class FrydAPITrophiesTest extends FrydAPITest {
 
     @Test
     public void testGetTrophiesOfListFullBody() throws Exception {
-        APIResponse<List<Trophy>> responseTrophiesFullBody = frydAPIService.getTrophiesOfList(testAppAccessToken, "57d019d6b9ad433518b1f665");
+        APIResponse<List<Trophy>> responseTrophiesFullBody = frydAPIService.getTrophiesOfList("57d019d6b9ad433518b1f665", testAppAccessToken);
         List<Trophy> trophies = responseTrophiesFullBody.getFrydDataType();
         assertThat(trophies.size(), is(10));
 
@@ -44,7 +44,7 @@ public class FrydAPITrophiesTest extends FrydAPITest {
     @Test
     public void testGetTrophiesOfListMinimalBody() throws Exception {
         ((FrydAPIServiceMock) frydAPIService).setTrophiesJsonResponse(TestModelJsonRepresentation.MINIMAL_TROPHIES_JSON);
-        APIResponse<List<Trophy>> responseTrophiesFullBody = frydAPIService.getTrophiesOfList(testAppAccessToken, "57d019d6b9ad433518b1f670");
+        APIResponse<List<Trophy>> responseTrophiesFullBody = frydAPIService.getTrophiesOfList("57d019d6b9ad433518b1f670", testAppAccessToken);
         List<Trophy> trophies = responseTrophiesFullBody.getFrydDataType();
         assertThat(trophies.size(), is(1));
 
@@ -69,7 +69,7 @@ public class FrydAPITrophiesTest extends FrydAPITest {
 
     @Test
     public void testGetTrophyByIdFullBody() throws Exception {
-        APIResponse<Trophy> responseTrophyFullBody = frydAPIService.getTrophyById(testAppAccessToken, "587e5c27c550b92754959cfe");
+        APIResponse<Trophy> responseTrophyFullBody = frydAPIService.getTrophyById("587e5c27c550b92754959cfe", testAppAccessToken);
 
         Trophy theOneAndOnlyTrophy = responseTrophyFullBody.getFrydDataType();
         assertThat(theOneAndOnlyTrophy.getId(), is("587e5c27c550b92754959cfe"));

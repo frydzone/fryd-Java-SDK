@@ -1,11 +1,11 @@
 package zone.fryd.sdk.service;
 
-import zone.fryd.sdk.provider.AbstractFrydProvider;
-import zone.fryd.sdk.provider.FrydOauthProvider;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import lombok.Getter;
+import zone.fryd.sdk.provider.AbstractFrydProvider;
+import zone.fryd.sdk.provider.FrydOauthProvider;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -42,8 +42,8 @@ public class FrydOAuthService {
         createOAuthService();
     }
 
-    public FrydOAuthService(String CLIENT_ID, String clientSecret, String returnUrl, AbstractFrydProvider oauthProvider) {
-        this.CLIENT_ID = CLIENT_ID;
+    public FrydOAuthService(String clientId, String clientSecret, String returnUrl, AbstractFrydProvider oauthProvider) {
+        this.CLIENT_ID = clientId;
         this.CLIENT_SECRET = clientSecret;
         this.RETURN_URL = returnUrl;
         this.oauthProvider = oauthProvider;

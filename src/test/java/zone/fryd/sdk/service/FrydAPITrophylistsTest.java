@@ -17,7 +17,7 @@ public class FrydAPITrophylistsTest extends FrydAPITest {
 
     @Test
     public void testGetTrophylistsFromLocationFullBody() throws Exception  {
-        APIResponse<List<Trophylist>> responseTrophylistsFullBody = frydAPIService.getTrophylistsFromLocation(testAppAccessToken, "57d014e2b9ad432b045c9aah");
+        APIResponse<List<Trophylist>> responseTrophylistsFullBody = frydAPIService.getTrophylistsFromLocation("57d014e2b9ad432b045c9aah", testAppAccessToken);
         List<Trophylist> trophylists = responseTrophylistsFullBody.getFrydDataType();
 
         assertThat(trophylists.size(), is(4));
@@ -41,7 +41,7 @@ public class FrydAPITrophylistsTest extends FrydAPITest {
     @Test
     public void testGetTrophylistsFromLocationMinimalBody() throws Exception  {
         ((FrydAPIServiceMock) frydAPIService).setTrophylistJsonResponse(TestModelJsonRepresentation.MINIMAL_TROPHYLISTS_JSON);
-        APIResponse<List<Trophylist>> responseTrophylistsMinimalBody = frydAPIService.getTrophylistsFromLocation(testAppAccessToken, "57d014e2b9ad432b045c9aag");
+        APIResponse<List<Trophylist>> responseTrophylistsMinimalBody = frydAPIService.getTrophylistsFromLocation("57d014e2b9ad432b045c9aag", testAppAccessToken);
         List<Trophylist> trophylists = responseTrophylistsMinimalBody.getFrydDataType();
 
         assertThat(trophylists.size(), is(1));

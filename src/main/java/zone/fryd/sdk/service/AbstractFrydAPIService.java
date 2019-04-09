@@ -41,21 +41,25 @@ public abstract class AbstractFrydAPIService {
         this.BASE_API_URL = baseAPIUrl;
     }
 
-    public abstract APIResponse<Location> getFrydSpotById(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException;
+    public abstract APIResponse<Location> getFrydSpotById(String locationId, OAuth2AccessToken appAccessToken) throws InterruptedException, ExecutionException, IOException;
 
-    public abstract Future<APIResponse<Location>> getFrydSpotByIdAsync(OAuth2AccessToken appAccessToken, String locationId);
+    public abstract Future<APIResponse<Location>> getFrydSpotByIdAsync(String locationId, OAuth2AccessToken appAccessToken);
 
-    public abstract APIResponse<List<Trophylist>> getTrophylistsFromLocation(OAuth2AccessToken appAccessToken, String locationId) throws InterruptedException, ExecutionException, IOException;
+    public abstract APIResponse<List<Trophylist>> getEventsFromLocation(String locationId, OAuth2AccessToken appAccessToken) throws InterruptedException, ExecutionException, IOException;
 
-    public abstract Future<APIResponse<List<Trophylist>>> getTrophylistsFromLocationAsync(OAuth2AccessToken appAccessToken, String locationId);
+    public abstract Future<APIResponse<List<Trophylist>>> getEventsFromLocationAsync(String locationId, OAuth2AccessToken appAccessToken);
 
-    public abstract APIResponse<List<Trophy>> getTrophiesOfList(OAuth2AccessToken appAccessToken, String trophylistId) throws InterruptedException, ExecutionException, IOException;
+    public abstract APIResponse<List<Trophylist>> getTrophylistsFromLocation(String locationId, OAuth2AccessToken appAccessToken) throws InterruptedException, ExecutionException, IOException;
 
-    public abstract Future<APIResponse<List<Trophy>>> getTrophiesOfListAsync(OAuth2AccessToken appAccessToken, String trophylistId);
+    public abstract Future<APIResponse<List<Trophylist>>> getTrophylistsFromLocationAsync(String locationId, OAuth2AccessToken appAccessToken);
 
-    public abstract APIResponse<Trophy> getTrophyById(OAuth2AccessToken appAccessToken, String trophyId) throws InterruptedException, ExecutionException, IOException;
+    public abstract APIResponse<List<Trophy>> getTrophiesOfList(String trophylistId, OAuth2AccessToken appAccessToken) throws InterruptedException, ExecutionException, IOException;
 
-    public abstract Future<APIResponse<Trophy>> getTrophyByIdAsync(OAuth2AccessToken appAccessToken, String trophyId);
+    public abstract Future<APIResponse<List<Trophy>>> getTrophiesOfListAsync(String trophylistId, OAuth2AccessToken appAccessToken);
+
+    public abstract APIResponse<Trophy> getTrophyById(String trophyId, OAuth2AccessToken appAccessToken) throws InterruptedException, ExecutionException, IOException;
+
+    public abstract Future<APIResponse<Trophy>> getTrophyByIdAsync(String trophyId, OAuth2AccessToken appAccessToken);
 
     public abstract APIResponse<User> getUserInformation(OAuth2AccessToken userAccessToken) throws InterruptedException, ExecutionException, IOException;
 

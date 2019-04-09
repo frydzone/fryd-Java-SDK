@@ -17,7 +17,7 @@ public class FrydAPILocationTest extends FrydAPITest {
 
     @Test
     public void testGetLocationByIdFullBody() throws Exception {
-        APIResponse<Location> responseLocationFullBody = frydAPIService.getFrydSpotById(testAppAccessToken, "57d014e2b9ad432b045c9aah");
+        APIResponse<Location> responseLocationFullBody = frydAPIService.getFrydSpotById("57d014e2b9ad432b045c9aah", testAppAccessToken);
         Location locationFullBody = responseLocationFullBody.getFrydDataType();
 
         assertThat(locationFullBody.getId(), is("57d014e2b9ad432b045c9aah"));
@@ -56,7 +56,7 @@ public class FrydAPILocationTest extends FrydAPITest {
     @Test
     public void testGetLocationByIdMinimalBody() throws Exception {
         ((FrydAPIServiceMock) frydAPIService).setLocationJsonResponse(TestModelJsonRepresentation.MINIMAL_LOCATION_JSON);
-        APIResponse<Location> responseLocationMinimalBody = frydAPIService.getFrydSpotById(testAppAccessToken, "585157821d33a9228cb281e2");
+        APIResponse<Location> responseLocationMinimalBody = frydAPIService.getFrydSpotById("585157821d33a9228cb281e2", testAppAccessToken);
         Location locationMinimalBody = responseLocationMinimalBody.getFrydDataType();
 
         assertThat(locationMinimalBody.getId(), is("585157821d33a9228cb281e2"));
@@ -86,7 +86,7 @@ public class FrydAPILocationTest extends FrydAPITest {
     @Test
     public void testGetLocationByIdNotPartError() throws Exception {
         ((FrydAPIServiceMock) frydAPIService).setLocationJsonResponse(TestModelJsonRepresentation.LOCATION_NOT_PART_ERROR);
-        APIResponse<Location> responseLocationError = frydAPIService.getFrydSpotById(testAppAccessToken, "5");
+        APIResponse<Location> responseLocationError = frydAPIService.getFrydSpotById("5", testAppAccessToken);
 
         assertThat(responseLocationError.getFrydDataType(), nullValue());
         assertThat(responseLocationError.getMessage(), is("Location not part of external application."));

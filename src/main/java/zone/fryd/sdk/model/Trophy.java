@@ -22,7 +22,7 @@ public class Trophy {
     private String description;
 
     /**
-     * Type of trophy, can be INTERNAL or GENERATED
+     * Type of trophy, can be EXTERNAL, COUNTER, WORLD, TIMED or GENERATED
      */
     private String type;
 
